@@ -1,0 +1,18 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: App Runner experiment
+Resources:
+  Service:
+    Type: AWS::AppRunner::Service
+    Properties:
+      ServiceName: app-runner-experiment
+      SourceConfiguration:
+        AutoDeploymentsEnabled: false
+        ImageRepository:
+          ImageIdentifier: public.ecr.aws/trustsitka/rodolpheche/wiremock:latest
+          ImageRepositoryType: ECR_PUBLIC
+          ImageConfiguration:
+            Port: 8080
+Outputs:
+  Endpoint:
+    Description: "The endpoint of the App Runner service."
+    Value: !GetAtt Service.ServiceUrl
